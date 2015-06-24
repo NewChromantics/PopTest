@@ -16,7 +16,8 @@
 
 
 
-TPopTest::TPopTest()
+TPopTest::TPopTest() :
+	TJobHandler	( static_cast<TChannelManager&>(*this), 10 )
 {
 	AddJobHandler("exit", TParameterTraits(), *this, &TPopTest::OnExit );
 
@@ -25,12 +26,12 @@ TPopTest::TPopTest()
 	AddJobHandler("echo", EchoTraits, *this, &TPopTest::OnEcho );
 }
 
-void TPopTest::AddChannel(std::shared_ptr<TChannel> Channel)
+bool TPopTest::AddChannel(std::shared_ptr<TChannel> Channel)
 {
-	TChannelManager::AddChannel( Channel );
-	if ( !Channel )
-		return;
+	if ( !TChannelManager::AddChannel( Channel ) )
+		return false;
 	TJobHandler::BindToChannel( *Channel );
+	return true;
 }
 
 

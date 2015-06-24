@@ -12,7 +12,7 @@ class TPopTest : public TJobHandler, public TChannelManager
 public:
 	TPopTest();
 	
-	virtual void	AddChannel(std::shared_ptr<TChannel> Channel) override;
+	virtual bool	AddChannel(std::shared_ptr<TChannel> Channel) override;
 
 	void			OnExit(TJobAndChannel& JobAndChannel);
 	void			OnEcho(TJobAndChannel& JobAndChannel);
